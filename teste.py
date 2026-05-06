@@ -1,20 +1,38 @@
-def obter_texto_valido():
-    while True:
-        # Solicita a entrada do usuário
-        texto = input("Digite algo (não pode ser vazio ou só espaços): ")
-        
-        # .strip() remove espaços em branco no início e no fim
-        if texto.strip() != "":
-            # Se tiver conteúdo, retorna o texto e sai do loop
-            return texto
-        else:
-            # Se for vazio, avisa e repete o loop
-            print("Entrada inválida! Você não preencheu nada.")
+#contagem regressiva utilizando "while"
 
-# Uso da função
-resultado = obter_texto_valido()
-print(f"Você digitou: {resultado}")
+#instataneo
+contador = 10
+while contador > 0:
+    print(contador)
+    contador -= 1  # Decrementa a variável em 1
+print("Lançamento!")
+
+#contagem
+import time
+
+tempo = 5
+while tempo >= 0:
+    print(tempo)
+    time.sleep(1)  # Espera 1 segundo
+    tempo -= 1
+print("Fim da contagem!")
+
+#contagem regressiva utilizando "for"
 
 
+import time
 
-#sistema de login(feito pelo google)
+# Contagem regressiva na mesma linha
+for i in range(5, 0, -1): #<<range(início, fim, passo)
+    print(f"Tempo restante: {i} ", end='\r')
+    time.sleep(1)
+print("Tempo esgotado!   ")
+
+#em lista
+import time
+
+# Contagem regressiva de 10 a 1
+for i in range(0, 10, 1): #<<range(início, fim, passo)
+    print(i)
+    time.sleep(1) # Pausa por 1 segundo
+print("Fogo! 🚀")

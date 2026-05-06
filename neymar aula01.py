@@ -96,3 +96,28 @@ thisdict = {
   "year": 2020
 }
 print(thisdict)
+
+#aula 04 - while e for
+
+
+#se repetindo infinitamente até que a palavra "sair"  para acionar o comando "break"
+
+while True:
+    resposta = input("Digite 'sair' para encerrar: ")
+    if resposta == 'sair':
+       break
+
+#Classe-aula 06
+class Inimigos:
+    vida = 100
+    dano = 15
+    velocidade = 10
+    forca = 2
+
+class Player:
+    vida = 100
+    dano = 15
+    velocidade = 10
+    forca = 2
+
+#aula 07
