@@ -165,19 +165,19 @@ git push
 # echo Nota 10 > notas.txt
 # echo Melhorando >> notas.txt
 
-https://github.com/motinha15614/sla
+https://github.com/motinha15614/sla  https://github.com/motinha15614/atividade-git.git
 
 echo "# t" >> README.md
 git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/GuilhermeSV7/t.git
+git remote add origin https://github.com/motinha15614/atividade-git.git
 git push -u origin main
 
 
 Puxar um repositorio existente
 
-git remote add origin https://github.com/GuilhermeSV7/t.git
+git remote add origin https://github.com/motinha15614/atividade-git.git
 git branch -M main
 git push -u origin main
