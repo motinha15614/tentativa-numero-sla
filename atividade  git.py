@@ -172,12 +172,14 @@ git init
 git add README.md
 git commit -m "first commit"
 git branch -M main
-git remote add origin https://github.com/motinha15614/atividade-git.git
+git remote add origin https://github.com/motinha15614/aula-10
 git push -u origin main
 
 
 Puxar um repositorio existente
 
-git remote add origin https://github.com/motinha15614/atividade-git.git
+git remote add origin https://github.com/motinha15614/aula-10
 git branch -M main
 git push -u origin main
+
+git push origin https://github.com/motinha15614/aula-10
