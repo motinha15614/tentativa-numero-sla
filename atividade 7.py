@@ -147,7 +147,6 @@ class Usuario:
 ListaUsuario = []
 ListaAdmin = []
 
-
 class Admin(Usuario):
     def adicionar():
         x = True
