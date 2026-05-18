@@ -1,76 +1,68 @@
-#contagem regressiva utilizando "while"
-
-#instataneo
-contador = 10
-while contador > 0:
-    print(contador)
-    contador -= 1  # Decrementa a variável em 1
-print("Lançamento!")
-
-#contagem
-import time
-
-tempo = 5
-while tempo >= 0:
-    print(tempo)
-    time.sleep(1)  # Espera 1 segundo
-    tempo -= 1
-print("Fim da contagem!")
-
-#contagem regressiva utilizando "for"
+#contagem regressiva utilizan
+#ou
 
 
-import time
 
-# Contagem regressiva na mesma linha
-for i in range(5, 0, -1): #<<range(início, fim, passo)
-    print(f"Tempo restante: {i} ", end='\r')
-    time.sleep(1)
-print("Tempo esgotado!   ")
+class Usuario:
+    #Construtor
+    def __init__(self,nome):
+        self.nome = nome
 
-#em lista
-import time
+usuarios_cadastrados = {
+    "admin": "12345",
+    "joao": "senha123",
+    "maria": "123"
+}
 
-# Contagem regressiva de 10 a 1
-for i in range(0, 10, 1): #<<range(início, fim, passo)
-    print(i)
-    time.sleep(1) # Pausa por 1 segundo
-print("Fogo! 🚀")
+class Admin(Usuario):
+    def adicionar():
+        x = True
+        while x == True:
+            add = input("Voce gostaria de adicionar um Usuario? s/n")
+            if add == "s":
+                usuario = str(input("Digite o nome do Usuario"))
+                senha = str(input("Senha: "))
 
-#sistema de login com tres tentativas
+                p = Usuario(usuario)
+                s = Usuario(senha)
 
-tentativas = 3
-flag = True
+                usuarios_cadastrados.append(p)
+                usuarios_cadastrados.append(s)
+            else:
+                x = False
+                input("\nPressione ENTER para voltar ao menu...")
+            return
+
+# Lista de usuários autorizados
  
-while True:
- 
-    if flag:
-      username = input("Entre com seu nome de usuario: ")
- 
-    if username == 'neymar':
- 
-      if flag:
-        tentativas = 3
-      flag = False
- 
-      password = input("Entre com sua senha: ")
-     
-      if password == 'senha':
-        print("login realizado")
-        print(f"seja bem vindo",username)
-        break
-      else:
-        print("Incorrect password")
+    # Verifica se o usuário existe e se a senha corresponde
+def entrar():
+
+    username = str(input("Usuário: "))
+    password = int(input("Senha: "))
+
+    if username in usuarios_cadastrados and usuarios_cadastrados[username] == password:
+        print("Login bem-sucedido!")
+        return True
     else:
-      print("Incorrect username")
- 
-    tentativas -= 1
- 
-    print(f"voce só tem mais {tentativas} tentativas")
- 
-    if tentativas == 0:
-        print("se e loco muito burro")
-        print("ACESSO NEGADO")
-        break
+        print("Usuário ou senha incorretos.")
+        input("\nPressione ENTER para voltar ao menu...")
+    return
 
+def menuUI():
+    while True:
+        print("Escolha uma Opcao")
+        print("2 - entrar")
+        print("1 - Adicionar")
+        
 
+        escolha = int(input("Digite um numero, para Escolher"))
+
+        if escolha == 1:
+            entrar()
+        elif escolha == 2:
+            Admin.adicionar()
+        else:
+            print("error")
+
+menuUI()

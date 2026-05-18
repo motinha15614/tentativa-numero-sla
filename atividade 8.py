@@ -5,6 +5,46 @@ class Usuario:
         self.nome = nome
         self.idade = idade
 
+tentativas = 3
+flag = True
+def cadastrar():
+    nome = input("qual sera o seu nome: ")
+    senha = input("qual sera a sua senha: ")
+
+
+def Login():
+    while True:
+ 
+        if flag:
+          username = input("Entre com seu nome de usuario: ")
+ 
+        if username == 'neymar':
+ 
+          if flag:
+            tentativas = 3
+          flag = False
+ 
+          password = input("Entre com sua senha: ")
+     
+          if password == 'senha':
+            print("login realizado")
+            print(f"seja bem vindo",username)
+            menuUI()
+          else:
+            print("Incorrect password")
+        else:
+          print("Incorrect username")
+ 
+        tentativas -= 1
+ 
+        print(f"voce só tem mais {tentativas} tentativas")
+ 
+        if tentativas == 0:
+            print("se e loco muito burro")
+            print("ACESSO NEGADO")
+            break
+
+
 print("bem vindo ao SUPERMERCADO PAGUE MAIS LEVE MENOS!!!")
 
 alimentos = ["0-arroz","1-ps5","2-abacaxi","3-hidrogen bomb","4-coxinha"]
