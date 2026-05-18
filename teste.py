@@ -1,6 +1,3 @@
-#contagem regressiva utilizan
-#ou
-
 
 
 class Usuario:
