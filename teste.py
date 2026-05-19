@@ -2,29 +2,22 @@
 
 class Usuario:
     #Construtor
-    def __init__(self,nome):
+    def __init__(self,nome, senha):
         self.nome = nome
+        self.senha = senha
 
-usuarios_cadastrados = {
-    "admin": "12345",
-    "joao": "senha123",
-    "maria": "123"
-}
+usuarios_cadastrados = []
 
-class Admin(Usuario):
-    def adicionar():
+def adicionar():
         x = True
         while x == True:
             add = input("Voce gostaria de adicionar um Usuario? s/n")
             if add == "s":
-                usuario = str(input("Digite o nome do Usuario"))
-                senha = str(input("Senha: "))
+                usuario = str(input("Digite o nome do Usuario: "))
+                senha = int(input("Senha: "))
 
-                p = Usuario(usuario)
-                s = Usuario(senha)
-
+                p = (usuario, senha)
                 usuarios_cadastrados.append(p)
-                usuarios_cadastrados.append(s)
             else:
                 x = False
                 input("\nPressione ENTER para voltar ao menu...")
@@ -33,10 +26,10 @@ class Admin(Usuario):
 # Lista de usuários autorizados
  
     # Verifica se o usuário existe e se a senha corresponde
-def entrar():
+def entrar(): #ta certo
 
     username = str(input("Usuário: "))
-    password = int(input("Senha: "))
+    password = str(input("Senha: "))
 
     if username in usuarios_cadastrados and usuarios_cadastrados[username] == password:
         print("Login bem-sucedido!")
@@ -49,8 +42,8 @@ def entrar():
 def menuUI():
     while True:
         print("Escolha uma Opcao")
-        print("2 - entrar")
-        print("1 - Adicionar")
+        print("1 - entrar")
+        print("2 - Adicionar")
         
 
         escolha = int(input("Digite um numero, para Escolher"))
@@ -58,7 +51,7 @@ def menuUI():
         if escolha == 1:
             entrar()
         elif escolha == 2:
-            Admin.adicionar()
+            adicionar()
         else:
             print("error")
 

@@ -121,3 +121,18 @@ class Player:
     forca = 2
 
 #aula 07
+#utiliza def para criar uma funcao 
+#ex:
+def falar():
+    print("oiii")
+def despedir():
+    print("tchau")
+
+escolha = input("escolha um 1 ou 2: ")
+if escolha == ("1"):
+   print(falar)
+if escolha == ("2"):
+   print(despedir)
+
+
+

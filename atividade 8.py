@@ -1,3 +1,91 @@
+compra = []
+pedidos = []
+
+def calcular_valor():  #ta certo
+    # 1. Definir preços
+
+    precos = {
+        "1": {"tipo": "Inteira", "valor": 50.0},
+        "2": {"tipo": "Meia-entrada", "valor": 25.0}
+    }
+
+ 
+    print("--- Sistema de Venda de Ingressos ---")
+    
+    while True:
+        print("\nEscolha o tipo de ingresso:")
+        print("1 - Inteira (R$ 50,00)")
+        print("2 - Meia-entrada (R$ 25,00)")
+        print("0 - Finalizar compra retornando ao menu principal")
+        
+        opcao = input("Opção: ")
+        
+        if opcao == "0": #<<modificado
+           return
+        elif opcao in precos:
+            try:
+                qtd = int(input(f"Quantos ingressos de {precos[opcao]['tipo']}? "))
+                if qtd > 0:
+                    valor_item = precos[opcao]["valor"] * qtd
+                    total += valor_item
+                    pedidos.append(f"{qtd}x {precos[opcao]['tipo']} - R$ {valor_item:.2f}")
+                    compra.append(f"{qtd}x {precos[opcao]['tipo']} - R$ {valor_item:.2f}")
+                    print(f"{qtd} {precos[opcao]['tipo']}(s) adicionado(s).")
+                else:
+                    print("Quantidade inválida.")
+            except ValueError:
+                print("Por favor, digite um número inteiro.")
+        else:
+            print("Opção inválida, tente novamente.")
+
+    cupom = input("\nDigite um cupom de desconto (ou ENTER para pular): ").upper()
+
+    if cupom == "DESCONTO10":
+        desconto = total * 0.10
+        total -= desconto
+
+        print(f"Cupom aplicado! Desconto de R$ {desconto:.2f}")
+    else:
+        if cupom != "":
+            print("Cupom inválido.")
+
+    # 3. Exibir resumo
+    print("\n--- Resumo da Compra ---")
+    for item in pedidos:
+        print(item)
+
+    print(f"Total a pagar: R$ {total:.2f}")
+    input("\nPressione ENTER para voltar ao menu...")
+    return 
+
+def Finalizar():
+    print("\n--- PAGAMENTO ---")
+
+    print("\nItens da compra:")
+    for item in compra:
+        print("-", item)
+
+    formas = ["1 - Débito", "2 - Crédito", "3 - Pix"]
+
+    for item in formas:
+        print(item)
+
+    forma = input("Escolha a forma de pagamento: ")
+
+    if forma == "1":
+        print("Pagamento no débito realizado!")
+
+    elif forma == "2":
+        print("Pagamento no crédito realizado!")
+
+    elif forma == "3":
+        print("Pagamento via PIX realizado!")
+
+    else:
+        print("Forma inválida.")
+        input("\nPressione ENTER para voltar ao menu...")
+        return
+
 #obs:na progamacao os codigos sao lidos de cima para baixo
 class Usuario:
     #Construtor
@@ -80,7 +168,7 @@ def menuUI():
   while True:
 
    print("Escolha uma Opcao")
-   print("1 - adicionar produto")
+   print("1 - cadastrar produto")
    print("2 - pagar")
    print("3 - finalizar compra")
    print("4 - encerrar")
