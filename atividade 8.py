@@ -1,196 +1,214 @@
-compra = []
-pedidos = []
+================
+# SISTEMA DE MERCADO
+# =========================
 
-def calcular_valor():  #ta certo
-    # 1. Definir preços
+produtos = []
+historico = []
 
-    precos = {
-        "1": {"tipo": "Inteira", "valor": 50.0},
-        "2": {"tipo": "Meia-entrada", "valor": 25.0}
-    }
 
- 
-    print("--- Sistema de Venda de Ingressos ---")
-    
-    while True:
-        print("\nEscolha o tipo de ingresso:")
-        print("1 - Inteira (R$ 50,00)")
-        print("2 - Meia-entrada (R$ 25,00)")
-        print("0 - Finalizar compra retornando ao menu principal")
-        
-        opcao = input("Opção: ")
-        
-        if opcao == "0": #<<modificado
-           return
-        elif opcao in precos:
-            try:
-                qtd = int(input(f"Quantos ingressos de {precos[opcao]['tipo']}? "))
-                if qtd > 0:
-                    valor_item = precos[opcao]["valor"] * qtd
-                    total += valor_item
-                    pedidos.append(f"{qtd}x {precos[opcao]['tipo']} - R$ {valor_item:.2f}")
-                    compra.append(f"{qtd}x {precos[opcao]['tipo']} - R$ {valor_item:.2f}")
-                    print(f"{qtd} {precos[opcao]['tipo']}(s) adicionado(s).")
-                else:
-                    print("Quantidade inválida.")
-            except ValueError:
-                print("Por favor, digite um número inteiro.")
+# =========================
+# LOGIN
+# =========================
+
+def login():
+    usuario_correto = "admin"
+    senha_correta = "123"
+
+    tentativas = 0
+
+    while tentativas < 3:
+
+        usuario = input("Usuário: ")
+        senha = input("Senha: ")
+
+        if usuario == usuario_correto and senha == senha_correta:
+            print("Login realizado com sucesso!")
+            return True
         else:
-            print("Opção inválida, tente novamente.")
+            tentativas += 1
+            print("Login incorreto.")
+    print("Sistema bloqueado.")
+    return False
 
-    cupom = input("\nDigite um cupom de desconto (ou ENTER para pular): ").upper()
 
-    if cupom == "DESCONTO10":
-        desconto = total * 0.10
-        total -= desconto
+def cadastrar_produto():
 
-        print(f"Cupom aplicado! Desconto de R$ {desconto:.2f}")
-    else:
-        if cupom != "":
-            print("Cupom inválido.")
+    codigo = input("Código do produto: ")
 
-    # 3. Exibir resumo
-    print("\n--- Resumo da Compra ---")
-    for item in pedidos:
-        print(item)
+    # Verifica código repetido
+    for produto in produtos:
+        if produto["codigo"] == codigo:
+            print("Código já cadastrado.")
+            return
 
-    print(f"Total a pagar: R$ {total:.2f}")
-    input("\nPressione ENTER para voltar ao menu...")
-    return 
+    nome = input("Nome do produto: ")
 
-def Finalizar():
-    print("\n--- PAGAMENTO ---")
+    preco = float(input("Preço: "))
 
-    print("\nItens da compra:")
-    for item in compra:
-        print("-", item)
-
-    formas = ["1 - Débito", "2 - Crédito", "3 - Pix"]
-
-    for item in formas:
-        print(item)
-
-    forma = input("Escolha a forma de pagamento: ")
-
-    if forma == "1":
-        print("Pagamento no débito realizado!")
-
-    elif forma == "2":
-        print("Pagamento no crédito realizado!")
-
-    elif forma == "3":
-        print("Pagamento via PIX realizado!")
-
-    else:
-        print("Forma inválida.")
-        input("\nPressione ENTER para voltar ao menu...")
+    if preco < 0:
+        print("Preço inválido.")
         return
 
-#obs:na progamacao os codigos sao lidos de cima para baixo
-class Usuario:
-    #Construtor
-    def __init__(self,nome, idade):
-        self.nome = nome
-        self.idade = idade
+    estoque = int(input("Estoque: "))
 
-tentativas = 3
-flag = True
-def cadastrar():
-    nome = input("qual sera o seu nome: ")
-    senha = input("qual sera a sua senha: ")
+    if estoque < 0:
+        print("Estoque inválido.")
+        return
+
+    produto = {
+        "codigo": codigo,
+        "nome": nome,
+        "preco": preco,
+        "estoque": estoque
+    }
+
+    produtos.append(produto)
+    print("Produto cadastrado com sucesso!")
 
 
-def Login():
+def listar():
+
+    if len(produtos) == 0:
+        print("Nenhum produto cadastrado.")
+        return
+
+    print("\n=== PRODUTOS ===")
+
+    for produto in produtos:
+
+        print("-------------------")
+        print("Código:", produto["codigo"])
+        print("Nome:", produto["nome"])
+        print("Preço: R$", produto["preco"])
+        print("Estoque:", produto["estoque"])
+
+def repor_estoque():
+
+    codigo = input("Código do produto: ")
+
+    for produto in produtos:
+
+        if produto["codigo"] == codigo:
+
+            quantidade = int(input("Quantidade para repor: "))
+
+            if quantidade <= 0:
+                print("Quantidade inválida.")
+                return
+
+            produto["estoque"] += quantidade
+
+            print("Estoque atualizado.")
+            return
+
+    print("Produto não encontrado.")
+
+def venda():
+
+    codigo = input("Digite o código do produto: ")
+
+    for produto in produtos:
+
+        if produto["codigo"] == codigo:
+
+            quantidade = int(input("Quantidade: "))
+
+            if quantidade <= 0:
+                print("Quantidade inválida.")
+                return
+
+            if quantidade > produto["estoque"]:
+                print("Estoque insuficiente.")
+                return
+
+            total = quantidade * produto["preco"]
+
+            produto["estoque"] -= quantidade
+            # Histórico
+            historico.append(produto["nome"])
+
+            print("\n=== CUPOM FISCAL ===")
+            print("Produto:", produto["nome"])
+            print("Quantidade:", quantidade)
+            print("Total: R$", total)
+
+            return
+
+    print("Produto não encontrado.")
+
+def relatorio():
+
+    if len(produtos) == 0:
+        print("Nenhum produto cadastrado.")
+        return
+
+    mais_caro = produtos[0]
+    maior_estoque = produtos[0]
+
+    valor_total = 0
+    quantidade_total = 0
+
+    for produto in produtos:
+
+        if produto["preco"] > mais_caro["preco"]:
+            mais_caro = produto
+
+        if produto["estoque"] > maior_estoque["estoque"]:
+            maior_estoque = produto
+
+        valor_total += produto["preco"] * produto["estoque"]
+        quantidade_total += produto["estoque"]
+
+    print("\n=== RELATÓRIO ===")
+
+    print("Produto mais caro e:", mais_caro["nome"])
+    print("Produto com maior estoque e:", maior_estoque["nome"])
+    print("Valor total do estoque e: R$", valor_total)
+    print("Quantidade total de produtos e:", quantidade_total)
+
+
+def historico():
+
+    if len(historico) == 0:
+        print("Nenhuma venda realizada.")
+        return
+
+    print("\n=== HISTÓRICO DE VENDAS ===")
+
+    for item in historico:
+        print(item)
+
+
+if login():
+
     while True:
- 
-        if flag:
-          username = input("Entre com seu nome de usuario: ")
- 
-        if username == 'neymar':
- 
-          if flag:
-            tentativas = 3
-          flag = False
- 
-          password = input("Entre com sua senha: ")
-     
-          if password == 'senha':
-            print("login realizado")
-            print(f"seja bem vindo",username)
-            menuUI()
-          else:
-            print("Incorrect password")
-        else:
-          print("Incorrect username")
- 
-        tentativas -= 1
- 
-        print(f"voce só tem mais {tentativas} tentativas")
- 
-        if tentativas == 0:
-            print("se e loco muito burro")
-            print("ACESSO NEGADO")
+
+        print("1 - Cadastrar produto")
+        print("2 - Listar produtos")
+        print("3 - Realizar venda")
+        print("4 - Repor estoque")
+        print("5 - Histórico de vendas")
+        print("6 - Relatório")
+        print("7 - Sair")
+
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == "1":
+            cadastrar_produto()
+        elif opcao == "2":
+            listar()
+        elif opcao == "3":
+            historico()
+        elif opcao == "4":
+            repor_estoque()
+        elif opcao == "5":
+            historico()
+        elif opcao == "6":
+            relatorio()
+        elif opcao == "7":
+            print("Sistema encerrado.")
             break
 
-
-print("bem vindo ao SUPERMERCADO PAGUE MAIS LEVE MENOS!!!")
-
-alimentos = ["0-arroz","1-ps5","2-abacaxi","3-hidrogen bomb","4-coxinha"]
-escolha = ("qual alimento voce gostaria comprar:")
-
-ListaUsuario = []
-ListaAdmin = []
-
-if(escolha == "0"):
-    print(alimentos[0])
-
-if(escolha == "1"):
-    print(alimentos[1])
-   
-if(escolha == "2"):
-    print(alimentos[2])
-   
-if(escolha == "3"):
-    print(alimentos[3])
-
-if(escolha == "4"):
-    print(alimentos[4])
-   
-def adicionar():
-
- def listar():
-       print(alimentos)  
-       input("\nPressione ENTER para voltar ao menu...")
-       return
-
-def menuUI():
-
-  while True:
-
-   print("Escolha uma Opcao")
-   print("1 - cadastrar produto")
-   print("2 - pagar")
-   print("3 - finalizar compra")
-   print("4 - encerrar")
-   print("5 - Relatório")
-   print("6 - Sair")
-
-   escolha = int(input("Digite um numero, para Escolher"))
-
-
-   if escolha == 1:
-       adicionar()
-   elif escolha == 6:
-       print("Encerrando sistema...")
-       exit()
-   else:
-      print("error")
-
-menuUI()
-
-
-
-
-
-input("\nPressione ENTER para voltar ao menu...")
-return
+        else:
+            print("Opção inválida.")

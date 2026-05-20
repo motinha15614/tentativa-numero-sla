@@ -53,3 +53,18 @@ while True:
 #(ex: esperar o usuário digitar 'sair').
 
 
+#sistema de login com while
+
+user = "oi"
+senha_c = "1234"
+
+logado = False
+while not logado:
+    print("login")
+    user1 = input("usuario: ")
+    senha1 = input("senha: ")
+    if user1 == user and senha_c == senha_c:
+      print("tacerto")
+      logado = True
+else:
+    print("taerrado")

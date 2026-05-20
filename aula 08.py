@@ -36,12 +36,12 @@ print(pedido1 / pedido2)
 # =========================
 # PARTE 4 - FOR
 # =========================
-
+import time
 
 numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"]
 for numeros in numeros:
     print(numeros)
-
+    time.sleep(1)
 # =========================
 # PARTE 5 - LISTA
 # =========================

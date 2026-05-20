@@ -1,7 +1,7 @@
 
 
 class Usuario:
-    #Construtor
+    #Construtor 
     def __init__(self,nome, senha):
         self.nome = nome
         self.senha = senha
@@ -23,9 +23,6 @@ def adicionar():
                 input("\nPressione ENTER para voltar ao menu...")
             return
 
-# Lista de usuários autorizados
- 
-    # Verifica se o usuário existe e se a senha corresponde
 def entrar(): #ta certo
 
     username = str(input("Usuário: "))
