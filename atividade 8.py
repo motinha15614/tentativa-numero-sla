@@ -1,14 +1,8 @@
-================
-# SISTEMA DE MERCADO
-# =========================
+
 
 produtos = []
 historico = []
 
-
-# =========================
-# LOGIN
-# =========================
 
 def login():
     usuario_correto = "admin"
